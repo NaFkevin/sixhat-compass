@@ -1,0 +1,17 @@
+node_modules/
+lib/
+!eval/phase-d/product-snapshot/lib/
+!eval/phase-d/product-snapshot/lib/**
+.runtime/
+research/
+*.tgz
+*.log
+
+.release/
+.env
+.env.*
+!.env.example
+.credentials*
+*.lock.tmp
+__pycache__/
+artifacts/

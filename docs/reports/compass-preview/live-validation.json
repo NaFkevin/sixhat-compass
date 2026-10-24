@@ -1,0 +1,78 @@
+{
+  "version": "0.1.0-preview.3",
+  "product": "SixHat Compass · 六帽规划",
+  "oldReviews": 20,
+  "oldReviewsUnchanged": true,
+  "schemaVersion": 4,
+  "preferencesBeforeRestart": {
+    "enabled": true,
+    "enabledHats": [
+      "white",
+      "red",
+      "black",
+      "yellow",
+      "green",
+      "blue"
+    ],
+    "replyLength": "brief",
+    "showUsage": false
+  },
+  "duplicateAdmissionAndLegacyApiNoNewCalls": true,
+  "composer": {
+    "elapsedMs": 292,
+    "composerText": "",
+    "stopVisible": true,
+    "newDraftPreserved": true
+  },
+  "sessionStats": {
+    "ordinaryTurns": 0,
+    "toolCalls": 0,
+    "hatCommands": 2,
+    "ordinaryTurnsAfterFirstHat": 0,
+    "toolCallsAfterFirstHat": 0
+  },
+  "calls": [
+    {
+      "id": "12b1a1bc-40cb-4b2c-bf21-592e46c9c557",
+      "hat": "black",
+      "state": "completed",
+      "callCount": 1,
+      "card": null,
+      "contextCount": 0,
+      "replyChars": 434,
+      "replySha256": "190887b2fdb76939b2f6a27ca0dd41cf4b9d15c8338b1ea71f0d1c590bfaf439",
+      "model": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      },
+      "usage": {
+        "inputTokens": 208,
+        "outputTokens": 979,
+        "cacheReadTokens": 0,
+        "cacheWriteTokens": 0,
+        "totalTokens": 1187
+      }
+    },
+    {
+      "id": "fc19f6a9-01f5-44e8-84b2-4510111192c6",
+      "hat": "green",
+      "state": "completed",
+      "callCount": 1,
+      "card": null,
+      "contextCount": 2,
+      "replyChars": 292,
+      "replySha256": "66ac8c3a550d909e96100481cf0058f50af8cdd97c1cb24dd4d15b5be16d75ec",
+      "model": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      },
+      "usage": {
+        "inputTokens": 597,
+        "outputTokens": 783,
+        "cacheReadTokens": 0,
+        "cacheWriteTokens": 0,
+        "totalTokens": 1380
+      }
+    }
+  ]
+}

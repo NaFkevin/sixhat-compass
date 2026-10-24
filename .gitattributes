@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.png binary
+*.tgz binary
+*.zip binary
+
+# Preserve the original byte snapshots used by compatibility regression.
+eval/phase-d/product-snapshot/** -text

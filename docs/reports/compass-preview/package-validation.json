@@ -1,0 +1,12 @@
+{
+  "version": "0.1.0-preview.3",
+  "packageFilesMatch": 49,
+  "oldPackageUnchanged": true,
+  "recordsAfterReinstall": 22,
+  "reinstallRecordsUnchanged": true,
+  "briefPreferenceSurvivedRestart": true,
+  "packageSha256": "b7d273887118bd06505081658890a6c51088c8bde3b0a174141b6bd13e92a381",
+  "canonicalSourceFilesMatch": true,
+  "standardPreferenceRestoredAndSurvivedFinalRestart": true,
+  "legacyCardOpenedInUi": true
+}

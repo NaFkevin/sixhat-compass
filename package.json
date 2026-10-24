@@ -1,0 +1,86 @@
+{
+  "name": "dsh-sixhat-compass",
+  "version": "0.1.0-preview.3",
+  "description": "SixHat Compass · 六帽规划：在 DSH 原生聊天中切换六种思考视角，评审计划、探索方案",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "docs/baseline.md",
+    "docs/architecture.md",
+    "docs/compatibility.md",
+    "docs/preview",
+    "CHANGELOG.md",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "assets"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-input-trigger",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-primitives",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc && node scripts/build-client.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.4",
+    "@deepseek-ai/dsh-agent-default-model": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-commands": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-host-webserver": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-llm": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-settings": "0.2.0-rc.2",
+    "@types/node": "24.10.1",
+    "typescript": "6.0.3",
+    "yaml": "2.9.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": "0.2.0-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "six-thinking-hats",
+    "planning",
+    "sixhat-compass"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaFkevin/sixhat-compass.git"
+  },
+  "homepage": "https://github.com/NaFkevin/sixhat-compass#readme",
+  "bugs": {
+    "url": "https://github.com/NaFkevin/sixhat-compass/issues"
+  }
+}

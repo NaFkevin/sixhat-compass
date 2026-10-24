@@ -1,0 +1,24 @@
+name: 问题反馈
+description: 使用合成材料描述可复现问题
+body:
+  - type: markdown
+    attributes:
+      value: 请勿上传密钥、登录链接、私人计划或完整会话库。
+  - type: input
+    id: versions
+    attributes:
+      label: 系统、Node、DSH 和插件版本
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 最小复现步骤与合成输入
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期行为与实际行为
+    validations:
+      required: true
