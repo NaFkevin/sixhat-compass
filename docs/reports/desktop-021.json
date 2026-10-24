@@ -1,0 +1,70 @@
+{
+  "updatedAt": "2026-10-24T13:41:40.700Z",
+  "host": "DSH Desktop 0.2.1-rc.2",
+  "plugin": "0.1.0-preview.4",
+  "platform": "Windows",
+  "isolatedProfile": true,
+  "bundledInstaller": "pnpm 11.28.5",
+  "calls": [
+    {
+      "id": "be00f750-a789-4b8f-935d-c5dd5959a312",
+      "hat": "black",
+      "state": "completed",
+      "calls": 1,
+      "card": null,
+      "contextMessages": 0,
+      "replyChars": 139,
+      "replySha256": "792fb436f60d0ea126ca426684670de0c8d013f3e30dd977a8c81c1befd4ab21",
+      "model": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      }
+    },
+    {
+      "id": "bee5663a-5d0f-40dc-993d-3d9c286bb3e2",
+      "hat": "green",
+      "state": "completed",
+      "calls": 1,
+      "card": null,
+      "contextMessages": 2,
+      "replyChars": 825,
+      "replySha256": "a0c20aaae88fcc66c590d4e94fff98a4b9f193457607322bcb2ce0ee0b14364c",
+      "model": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      }
+    }
+  ],
+  "webValidation": {
+    "hostVersion": "0.2.1-rc.2",
+    "pluginVersion": "0.1.0-preview.4",
+    "actualCall": {
+      "id": "53df953c-3c48-42b4-ac2c-8476b1c406f6",
+      "state": "completed",
+      "calls": 1,
+      "card": null,
+      "selection": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      },
+      "replyChars": 154
+    },
+    "officialDesktopForwarder": {
+      "state": 200,
+      "backup": 200,
+      "foreignOrigin": 403
+    },
+    "acceptedComposerCleared": true
+  },
+  "regressionTests": 65,
+  "formalHumanValidation": "not-completed",
+  "desktopBackup": {
+    "uiSaved": true,
+    "records": 2,
+    "sha256": "9a4200722db0e7859d9f82e5cad55eeb1f3fc347029367165482ddb5e5148f43"
+  },
+  "settings": {
+    "replyLength": "brief",
+    "savedToHostPatch": true
+  }
+}

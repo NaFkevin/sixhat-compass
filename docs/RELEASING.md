@@ -1,6 +1,6 @@
 # SixHat Compass Preview 发布流程
 
-产品名 SixHat Compass · 六帽规划；仓库 sixhat-compass；包 dsh-sixhat-compass；版本0.1.0-preview.3。
+产品名 SixHat Compass · 六帽规划；仓库 sixhat-compass；包 dsh-sixhat-compass；版本0.1.0-preview.4。
 
 ## 构建与公开源码
 
@@ -23,8 +23,8 @@ python scripts/prepare-github.py
 
 1. 在干净Git检出中验证类型检查、构建、测试及包内容，核对公开文件清单。
 2. 正常推送main，等待同一提交的Windows/Linux CI通过。
-3. 在通过CI的确切提交创建并推送v0.1.0-preview.3标签。
-4. 先创建草稿Release，上传dsh-sixhat-compass-0.1.0-preview.3.tgz及SHA256SUMS.txt。
+3. 在通过CI的确切提交创建并推送v0.1.0-preview.4标签。
+4. 先创建草稿Release，上传dsh-sixhat-compass-0.1.0-preview.4.tgz及SHA256SUMS.txt。
 5. 下载草稿附件核对字节和SHA256，发布为Prerelease且不标记Latest，再验证匿名下载。
 
 实际仓库、CI、提交、标签、Release和附件哈希记录在发布交付报告中。CI通过不等于其他平台DSH已经实测；不把未执行的验证写成通过。本流程不包含npm发布或DSH上架。

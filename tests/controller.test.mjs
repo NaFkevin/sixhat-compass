@@ -41,6 +41,19 @@ test('origin boundary rejects cross-site and non-loopback access',()=>{
   assert.equal(trusted(req({host:'127.0.0.1:3088',origin:'http://evil.test'})),false);
   assert.equal(trusted(req({host:'127.0.0.1:3088'})),false);
 });
+test('Desktop forwarded requests need the explicit client header and reject browser preflights',()=>{
+  const req=(headers,method='GET',address='127.0.0.1')=>({headers,method,socket:{remoteAddress:address}});
+  const desktop={host:'127.0.0.1:3088','x-sixhat-client':'1'};
+  assert.equal(trusted(req(desktop)),true);
+  assert.equal(trusted(req(desktop,'POST')),true);
+  assert.equal(trusted(req(desktop,'OPTIONS')),false);
+  assert.equal(trusted(req({...desktop,origin:'http://evil.test'})),false);
+  assert.equal(trusted(req({...desktop,origin:'null'})),false);
+  assert.equal(trusted(req({...desktop,'sec-fetch-site':'cross-site'})),false);
+  assert.equal(trusted(req({...desktop,'sec-fetch-site':'same-site'})),false);
+  assert.equal(trusted(req(desktop,'GET','192.168.1.2')),false);
+});
+
 test('lifecycle disposer removes routes and closes the store',async()=>{
   const directory=mkdtempSync(join(tmpdir(),'hexamind-lifecycle-'));
   let dispose;let removed=0;

@@ -37,7 +37,11 @@ export function trusted(req: IncomingMessage): boolean {
     if (!['localhost', '127.0.0.1', '[::1]'].includes(target.hostname)) return false;
     if (req.headers['sec-fetch-site'] === 'cross-site') return false;
     if (req.headers.origin) return req.headers.origin === target.origin;
-    return req.headers['sec-fetch-site'] === 'same-origin';
+    // Desktop's authenticated forwarder strips Origin and Sec-Fetch-Site.
+    // A custom header keeps browser cross-site form/no-cors requests denied;
+    // cross-origin scripted requests require a preflight which we never allow.
+    return req.headers['sec-fetch-site'] === 'same-origin' ||
+      (!req.headers['sec-fetch-site'] && req.headers['x-sixhat-client'] === '1' && req.method !== 'OPTIONS');
   } catch { return false; }
 }
 export function apply(ctx: Context, config: SettingsConfig = {}) {
@@ -57,7 +61,7 @@ export function apply(ctx: Context, config: SettingsConfig = {}) {
       const review = params.has('commandId')?controller.reviews.find(r=>r.native?.commandId===params.get('commandId'))??null:id==='new'?null:controller.reviews.find(r=>r.id===(id||history.items[0]?.id))??null;
       const safeReview = review ? { ...review, recovery:recoveryInfo(review),followups:review.followups.map(f=>({...f,recovery:{canRetry:['failed','cancelled','interrupted'].includes(f.state),...failureHelp(f.errorCode)}})),calls: review.calls.map(({ system, input, ...rest }) => rest) } : null;
       const nativeSession=review?.native&&ctx.sessions?.get(SessionId(review.native.sessionId));
-      json(res, 200, { phase: 'Native Preview',version:'0.1.0-preview.3',productName:'SixHat Compass · 六帽规划',defaultMode:'hat-chat',preferences:getPreferences(),humanValidation:'not-completed', enabled: controller.enabled, busy: controller.busy, selection: ctx.agentDefaultModel.currentSelection(),
+      json(res, 200, { phase: 'Native Preview',version:'0.1.0-preview.4',productName:'SixHat Compass · 六帽规划',defaultMode:'hat-chat',preferences:getPreferences(),humanValidation:'not-completed', enabled: controller.enabled, busy: controller.busy, selection: ctx.agentDefaultModel.currentSelection(),
         storage:store.info,history,reviews:history.items,selectionMissing:!!id&&id!=='new'&&!review,review: safeReview,...(nativeSession?{nativeSessionStats:nativeSessionSummary(nativeSession)}:{}) });
     }}), ctx.webServer.register({ kind: 'exact', path: '/api/hexamind/action', handler: async (req, res) => {
       if (!trusted(req)) return json(res, 403, { error: 'UNTRUSTED_ORIGIN' });

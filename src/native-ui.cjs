@@ -31,7 +31,7 @@ function NativeReply({node,scope}){
   content?h(NativeMarkdown,{text:content,streaming:running,labels:markdownLabels}):h('span',{role:'status'},r&&r.state!=='running'?'未收到回复正文。':node.outcome?'本次调用未完成。':r?'等待模型回复…':'正在准备上下文…'),
   r&&r.state!=='running'&&r.state!=='completed'&&h('p',{role:'status'},'本次'+(labels[r.state]||r.state)+'，以上为已保留内容。可从评审记录恢复。'),
   (error||node.outcome?.kind==='error'&&!r)&&h('p',{role:'alert',className:'hm-error'},error||node.outcome.text),
-  r?.card&&h('a',{href:'/api/hexamind/export?reviewId='+encodeURIComponent(r.id),download:true},'导出决策卡'),
+  r?.card&&h(DownloadLink,{path:'export?reviewId='+encodeURIComponent(r.id),filename:'sixhat-decision.md'},'导出决策卡'),
   r?.native&&h('details',null,h('summary',null,'本次上下文 · '+r.native.context.length+' 条'+(r.native.contextOmitted?' · '+r.native.contextOmitted+' 条较早或过长内容未纳入':'')),r.native.context.map(item=>h('div',{key:item.id},h('strong',null,item.role+' · '+item.id),h('pre',null,item.text)))),
   r&&h('details',{open:(preferences?.showUsage??snapshot.preferences?.showUsage)||undefined},h('summary',null,'调用记录 · '+r.calls.length+' 次'),h('small',null,'默认模型：'+(call?call.selection.provider+' / '+call.selection.model:'未调用')),h('pre',null,JSON.stringify(r.calls.map(({hat,state,purpose,usage,errorCode})=>({hat,state,purpose,usage,errorCode})),null,2))));
 }
@@ -48,7 +48,7 @@ function NativeSettings({scope}){
  h('label',null,h('input',{type:'checkbox',checked:value.showUsage,disabled,onChange:e=>change('showUsage',e.target.checked)}),'默认展开用量详情'),
  settings.status!=='ready'&&h('p',{role:'status'},'正在连接宿主设置…'),!settings.writable&&settings.status==='ready'&&h('p',{role:'status'},'当前设置只读，不能保存修改。'),error&&h('p',{role:'alert'},error),
  h('details',null,h('summary',null,'使用方法'),h('p',null,'输入 @ 选择帽子，名称后加空格，再写问题。选中候选只补全，点击发送才调用。'),h('p',null,'单独发送 @新讨论 开始独立讨论，不调用模型。@评审 生成决策卡；@六帽 执行深度评审，正常分别1次和6次调用。'),h('p',null,'只有消息开头的命令用于调用；单帽读取当前会话最近20条文本，上下文按完整消息选取，最多24000字符。')),
- h('fieldset',null,h('legend',null,'模型与数据'),h('p',null,'使用 DSH 全局默认模型。模型密钥和供应商请在宿主的模型设置中管理。'),h('a',{href:'/api/hexamind/backup',download:true},'备份全部评审记录'),h('p',null,'备份含原材料和模型请求，请妥善保管。')),
+ h('fieldset',null,h('legend',null,'模型与数据'),h('p',null,'使用 DSH 全局默认模型。模型密钥和供应商请在宿主的模型设置中管理。'),h(DownloadLink,{path:'backup',filename:'sixhat-records-backup.json'},'备份全部评审记录'),h('p',null,'备份含原材料和模型请求，请妥善保管。')),
  h('details',null,h('summary',null,'Preview 说明'),h('p',null,'SixHat Compass · 0.1.0-preview.3 · 真人产品价值验证尚未完成；来源关联不代表事实核验。帽子由同一宿主模型调用，不是独立专家。停止后保留已接收内容，崩溃恢复以最后成功落盘检查点为准。')));
 }
 async function createHatDiscussion(ctx,sessionId){

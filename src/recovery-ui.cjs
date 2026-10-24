@@ -11,7 +11,7 @@ function History({state,selected,onSelect,search,setSearch,filter,setFilter,setP
  h('label',{htmlFor:'hm-filter'},'状态筛选'),h('select',{id:'hm-filter',value:filter,onChange:e=>{setFilter(e.target.value);setPage(1)}},[['all','全部'],['attention','需要处理'],['completed','已完成'],['failed','失败'],['cancelled','已停止'],['interrupted','重启中断'],['running','进行中']].map(([v,n])=>h('option',{key:v,value:v},n))),
  ...(x?.items||[]).map(r=>h('button',{key:r.id,type:'button','aria-current':selected===r.id||state?.review?.id===r.id,onClick:()=>onSelect(r.id)},r.title,h('small',null,modeLabel(r.mode)),h('small',null,labels[r.state]+(r.needsAttention?' · 待处理':'')),h('small',null,r.completedStages+'/'+r.totalStages+' 阶段 · '+r.callCount+' 次调用'),h('small',null,new Date(r.updatedAt).toLocaleString()))),
  x&&h('div',null,h('small',null,'共 '+x.total+' 条 · 第 '+x.page+' / '+x.pages+' 页'),h('div',{className:'hm-row'},h('button',{type:'button',disabled:x.page<=1,onClick:()=>setPage(x.page-1)},'上一页'),h('button',{type:'button',disabled:x.page>=x.pages,onClick:()=>setPage(x.page+1)},'下一页'))),
- x?.total===0&&h('p',null,'没有符合条件的记录。'),h('a',{className:'hm-backup',href:'/api/hexamind/backup',download:true},'备份全部已保存记录'),h('small',null,'备份含原始材料与调用内容，请妥善保管。'));
+ x?.total===0&&h('p',null,'没有符合条件的记录。'),h(DownloadLink,{className:'hm-backup',path:'backup',filename:'sixhat-records-backup.json'},'备份全部已保存记录'),h('small',null,'备份含原始材料与调用内容，请妥善保管。'));
 }
 function Recovery({review,busy,action}){
  const x=review.recovery;if(!x?.canResume&&!review.storageError)return null;
