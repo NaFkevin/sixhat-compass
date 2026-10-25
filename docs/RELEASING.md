@@ -31,3 +31,15 @@ python scripts/prepare-github.py
 
 
 发布目标：https://github.com/NaFkevin/sixhat-compass 。提交使用账号NaFkevin和GitHub隐私邮箱，仅在发布仓库配置。
+
+
+## 独立 Skill 发布
+
+Skill 独立版本来自 `skills/sixhat-compass/SKILL.md` 的 metadata.version，不能修改插件 package.json 来发布 Skill。
+
+1. 执行 `node scripts/validate-skill.mjs`、`node --test tests/skill-package.test.mjs`、`python scripts/package-skill.py`。
+2. 复核三类公开材料的真实宿主输出、失败和待验收项，更新 `docs/skill/report.md`；不运行 CI 上的付费真实模型评测。
+3. 通过 `scripts/prepare-github.py` 导出显式白名单；审查公开文件、署名与未泄漏凭据，正常推送 main。
+4. 等待同一提交的 CI 与 Skill 工作流全部通过；从干净检出复现相同 ZIP 哈希。
+5. 在通过的提交上打 `skill-v0.1.0-preview.1`，创建预发布草稿。上传 `artifacts/skill` 下 ZIP 与 SHA256SUMS.txt，下载验证再发布 Prerelease，非 Latest。
+6. 再次核对 main、标签、Release 提交及公开下载校验。保留旧插件所有标签和包；不发布 npm，不走 DSH 插件上架流程。

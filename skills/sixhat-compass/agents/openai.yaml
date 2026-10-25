@@ -1,0 +1,4 @@
+interface:
+  display_name: "SixHat Compass · 六帽规划"
+  short_description: "六种思考视角审视计划，默认单帽建议，按需综合评审并整理可行动的决策卡"
+  default_prompt: "使用 $sixhat-compass，以黑帽视角评审上面的计划。"

@@ -1,0 +1,33 @@
+name: Skill
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: node scripts/validate-skill.mjs
+      - run: node --test tests/skill-package.test.mjs
+      - run: python scripts/package-skill.py
+      - name: Verify reproducible release digest
+        run: node -e "const fs=require('fs');const expected=JSON.parse(fs.readFileSync('eval/skill/package-manifest.json'));const actual=JSON.parse(fs.readFileSync('artifacts/skill/package-manifest.json'));if(expected.sha256!==actual.sha256)throw Error('Skill ZIP digest differs');"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sixhat-compass-skill-${{ matrix.os }}
+          path: |
+            artifacts/skill/*.zip
+            artifacts/skill/SHA256SUMS.txt

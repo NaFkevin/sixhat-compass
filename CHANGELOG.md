@@ -1,5 +1,12 @@
 # SixHat Compass · 六帽规划 0.1.0-preview.3
 
+## Skill 0.1.0-preview.1
+
+- 新增独立纯 Skill：六帽单次任务、主动高级评审和 Markdown 决策卡。
+- 新增 ZIP、校验文件、Skill CI、公开评测材料与分宿主安装说明。
+- 旧插件版本、发行包和记录保持原样。Skill 标签为 `skill-v0.1.0-preview.1`。
+- Codex 补充文件读取遇到本机权限错误，高级流程与正式真人价值验证仍待完成，见 [Skill 报告](docs/skill/report.md)。
+
 ## 0.1.0-preview.5
 
 - 增加 DSH Desktop 0.2.1-rc.3 的精确兼容声明，保留原有两个已声明版本。

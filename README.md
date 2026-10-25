@@ -1,69 +1,61 @@
 # SixHat Compass · 六帽规划
 
-在 **DeepSeek Harness（DSH）原生聊天**中切换六种思考视角，评审计划、探索替代方案、明确下一步。
+用白、红、黑、黄、绿、蓝六种思考视角审视计划，在当前 AI 聊天里得到可行动的建议。
 
-**0.1.0-preview.5 · 社区插件 · MIT**
+**纯 Skill：0.1.0-preview.1 · MIT**。使用宿主当前模型，不需要额外 API Key、服务、Node.js 或构建。旧 DSH 插件及历史发行版继续保留。
+
+[下载 Skill ZIP 与校验文件](https://github.com/NaFkevin/sixhat-compass/releases/tag/skill-v0.1.0-preview.1) · [技能目录](skills/sixhat-compass) · [安装说明](docs/skill/install.md) · [实际测试报告](docs/skill/report.md)
+
+## 怎么用
+
+解压完整的 `sixhat-compass` 目录，放到宿主技能目录。**Skill ZIP 不走 DSH“添加插件”流程**。
+
+- DSH：当前 DSH_HOME 的 `skills/sixhat-compass`，原生入口 `/sixhat-compass`。
+- Codex：项目内 `.agents/skills/sixhat-compass`，原生入口 `$sixhat-compass`。
 
 ```text
-@黑帽 我每周8小时，计划4周内找3位用户试用。先指出最需要验证的风险。
-@绿帽 基于上面的计划，给两种成本更低的验证方案。
-@白帽 区分已知信息、假设和信息缺口。
+/sixhat-compass 黑帽：指出上面计划最需要先验证的风险。
+展开第二条，怎么验证？
+换成绿帽，给两个成本更低的方案。
 ```
 
-帽子名后加空格。输入 `@` 可选择帽子，选中只补全，发送才调用。请求保存并受理后输入框清空，模型在当前消息流继续回复；可以先写下一条草稿。失败、停止或中断的已受理任务可从记录页恢复，不会自动重发。
+Codex 将第一行换为 `$sixhat-compass 黑帽：…`。也可明确说“使用六帽规划，白帽：区分信息、假设和缺口”。`@黑帽` 仅是技能加载后的文本别名，不注册六帽输入候选；首选宿主原生 Skill 入口。
 
-![六帽规划原生聊天](assets/native-chat.png)
-
-## 六种视角
-
-| 调用 | 用途 |
+| 视角 | 用途 |
 |---|---|
-| `@白帽` | 区分事实、假设与信息缺口 |
-| `@红帽` | 表达直觉与可能的情绪反应 |
-| `@黑帽` | 找出风险、触发条件和验证行动 |
-| `@黄帽` | 分析价值与收益成立条件 |
-| `@绿帽` | 提出实质不同的替代方案 |
-| `@蓝帽` | 整理目标、分歧与下一步 |
+| 白帽 | 用户信息、待验证假设与信息缺口 |
+| 红帽 | 可能的直觉与情绪，明确为模拟分析 |
+| 黑帽 | 风险、触发条件与验证行动 |
+| 黄帽 | 价值、收益成立条件与验证方式 |
+| 绿帽 | 不同的替代方案与小实验 |
+| 蓝帽 | 目标、分歧、优先级与下一步 |
 
-单帽通常一次模型调用，直接返回自然语言建议，不自动启动其他角色或生成卡片。每条回复可复制，来源与用量折叠展示。
+默认单帽，不自动生成卡片；未指定帽子时默认蓝帽。明确追问沿用上一顶帽子，明确换帽立即切换，无关的新问题恢复普通回答。用户可直接要求简短或详细。
 
-单独发送 **`@新讨论`** 创建独立讨论，不调用模型。高级入口 **`@评审`** 生成结构化决策卡，**`@六帽`** 执行完整评审，通常分别1次、6次调用。记录页支持查找、恢复、卡片编辑和 Markdown 导出。
+主动要求“评审”可获得综合分析及简洁决策卡；“六帽评审”按六种视角组织并汇总卡片；“生成决策卡”只整理已有讨论。卡片区分信息来源与假设，用户最终决定留待填写，默认直接回复可复制的 Markdown。
 
-## 安装
+## 验证与边界
 
-要求 **Node.js ≥24**，支持 **DSH 0.2.0-rc.2、0.2.1-rc.2 或 0.2.1-rc.3**；Windows 下实测 CLI/Web 0.2.0-rc.2、0.2.1-rc.2，以及 Desktop 0.2.1-rc.2 / rc.3，模型 deepseek-flash。在 [Releases](https://github.com/NaFkevin/sixhat-compass/releases) 下载对应 `.tgz` 并核对随附的 `SHA256SUMS.txt`。
+Windows DSH 0.2.1-rc.3 的隔离 Desktop 已发现技能并接受显式调用，headless 执行三类公开材料的行为测试。Codex app-server 已验证隔离发现及基础连续对话；本机权限错误影响补充文件读取，高级流程与桌面新会话刷新仍待验收。完整输出、失败和待验收项见[报告](docs/skill/report.md)。其他宿主尚未实测。
 
-桌面端：打开“插件 → 添加插件”，输入下载的 `.tgz` 完整路径；不要选择版本兼容豁免。Preview.3 不支持 0.2.1；Preview.4 不支持 0.2.1-rc.3。rc.3 用户请使用 Preview.5。
+六帽是同一模型的思考程序，不是六位独立专家。Skill 不控制精确调用次数、费用、固定历史截取或独立检查点。默认不联网、不执行命令、不读无关文件、不写文件；权限与会话管理仍由宿主负责。没有真实核验就标记尚未外部核验，缺材料时要求补充。
 
-CLI/Web：关闭目标 DSH，确认与启动时相同的 `DSH_HOME` / `web` profile：
+**正式真人产品价值验证未完成。** 格式检查和模型行为测试不证明六帽优于普通 AI。
 
-```powershell
-dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.5.tgz'
-dsh web --no-open --host 127.0.0.1 --port 3088
+## 旧 DSH 插件
+
+需要原生 `@` 六帽候选、设置页、独立评审记录与恢复功能，可继续使用 [DSH 插件 Preview.5](https://github.com/NaFkevin/sixhat-compass/releases/tag/v0.1.0-preview.5)。插件与 Skill 是两种分发方式，安装方法和能力不同，见[差异表](docs/skill/capabilities.md)、[旧插件说明](docs/preview/plugin-readme.md)。本次不改写旧数据，不自动卸载插件。
+
+## 维护与复现
+
+以下工具仅用于维护检查，最终 Skill 用户无需安装：
+
+```text
+node scripts/validate-skill.mjs
+node --test tests/skill-package.test.mjs
+python scripts/package-skill.py
 ```
 
-模型和密钥在 DSH 中配置，插件继承**全局默认模型**，可能与聊天框临时模型不同。设置位于 **DSH 设置 → 六帽规划**；侧栏“六帽规划”打开评审记录。默认全部六帽启用、标准回复、用量折叠，重启保留。
+ZIP 使用固定时间、排序与 LF 文本。真实对话复测需要宿主及其已配置模型，见[报告与复测步骤](docs/skill/report.md)。插件仍可按原有 npm 流程构建测试。
 
-旧 HexaMind 或 Liumao Planner 用户先备份，再按[升级步骤](docs/preview/install.md)替换包，避免同时加载两个插件。旧配置、API、命令和存储的内部 `hexamind` 标识保留兼容；本项目与同名 AI 服务公司无关联。
-
-## 开发与验证
-
-```powershell
-npm ci --ignore-scripts --no-audit --no-fund
-npm run typecheck
-npm run build
-npm test
-npm pack --pack-destination artifacts
-```
-
-客户端复用宿主 React 与公开扩展接口，不引入大型 UI 框架，不改写宿主页面结构。模型工具列表为空，不执行命令、读文件或联网核验。只有消息开头的已知帽子命令进入插件，正文、引用与代码中的 `@` 不触发帽子。
-
-上下文仅当前会话最近的普通文本与帽子回复：最多20条、合计24000字符，按完整消息选取，本次问题不截断；来源与遗漏数可展开查看。
-
-## Preview 边界
-
-已有开发者非结构化试用反馈，本次修复来自真实试用；**尚无按协议完成的真人产品价值验证或真人对照结论**，不能据此宣称六帽优于普通 AI。帽子使用同一模型，不是六位独立专家。来源关联不等于事实核验。
-
-停止保留已接收内容，崩溃恢复到最后成功落盘检查点；不承诺取消后零费用。附件不支持，原生 Desktop、其他系统和全部中文输入法尚未完成验证。宿主纯命令会话可能被视为空白，请用 `@新讨论`；卸载后纯命令视图可能隐藏，日志与插件记录仍保留，重装恢复。
-
-[安装与升级](docs/preview/install.md) · [已知限制](docs/preview/known-limitations.md) · [发布说明](docs/preview/release-notes.md) · [本轮验证报告](docs/reports/compass-preview-report.md) · [贡献指南](CONTRIBUTING.md) · [发布准备](docs/RELEASING.md)
+[Skill 发布说明](docs/skill/release-notes.md) · [开源许可](LICENSE) · [贡献指南](CONTRIBUTING.md)

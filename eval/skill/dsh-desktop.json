@@ -1,0 +1,15 @@
+{
+  "host": "DSH Desktop 0.2.1-rc.3",
+  "model": "deepseek-flash",
+  "legacyPlugin": false,
+  "discovery": "Native /sixhat-compass candidate selected in isolated Desktop",
+  "invocation": {
+    "kind": "skill-invocation",
+    "name": "sixhat-compass",
+    "form": "instructions"
+  },
+  "prompt": "/sixhat-compass  黑帽：六帽规划准备做通用Skill，面向独立开发者，首版保留单帽建议与按需评审，四周找3人试用，每周8小时。请简短列出两个最应验证的风险。",
+  "text": "**黑帽**：结论先说：这个计划最大的问题，是首版很难从 3 人、4 周的试用中得到“值得做通用 Skill”的证据。下面是两个最应优先验证的风险。\n\n**风险一：需求频率，实际是“能用一次”而不是“会反复用”**\n- 触发条件：3 人中至少 2 人在第一周之后使用不超过 1 次；他们提到的场景都是“帮我理一下”，而不是真实待决的取舍；回访时说不出下次什么时候还会用。\n- 检验行动：试用前先问“过去一个月你实际做过几次这类决策”，排除这些人只是出于好奇；记录每次使用的决策对象与间隔；在第 2 周和第 4 周各固定回访一次。若 3 人里连 1 个自然复用的人都找不到，就应认为“通用 Skill”这个前提不成立，而不是把它归因于功能不足。\n\n**风险二：价值无法归因，难以说清 Skill 与直接问模型有什么不同**\n- 触发条件：试用者反馈“跟直接问 AI 差不多”；或者单帽建议被认可了，但没有改变任何决定和下一步行动；如果只靠熟人试用，反馈会偏正面。\n- 检验行动：同一决策让用户做一次原生对话、一次用 Skill，再问“哪次改变了你的决定或下一步”，只保留能产生可观测行为改变的环节；试用者尽量不从熟人里找。若两个版本的结果没有差异，首版需要保留的是“按需评审”的结构化追问，不是六顶帽子本身。\n\n补充一句：4 周、每周 8 小时，还要招人，真正能用于验证的时间会少于计划，上面两项已是能挤出的上限；再增加验证项只会让哪一项都做不实。",
+  "toolCalls": 0,
+  "source": "Sanitized durable host session; raw system/runtime/reasoning data intentionally excluded."
+}
