@@ -12,7 +12,7 @@ assert not out.exists(), 'Refusing to overwrite an existing release tree'
 files=[root/p for p in ('package.json','package-lock.json','tsconfig.json','cordis.patch.yml','README.md','CHANGELOG.md','LICENSE','THIRD_PARTY_NOTICES.md','CONTRIBUTING.md','SECURITY.md','.gitignore','.gitattributes','.editorconfig')]
 for folder in ('src','tests','eval/phase-d/product-snapshot','fixtures','.github','assets','docs/preview','docs/reports/compass-preview'):
     files.extend(p for p in (root/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
-files.extend(root/p for p in ('docs/baseline.md','docs/architecture.md','docs/compatibility.md','docs/RELEASING.md','docs/reports/compass-preview-report.md','docs/reports/desktop-021-report.md','docs/reports/desktop-021.json','docs/reports/desktop-021-settings.png','scripts/build-client.mjs','scripts/phase-d-score.mjs','scripts/prepare-github.py'))
+files.extend(root/p for p in ('docs/baseline.md','docs/architecture.md','docs/compatibility.md','docs/RELEASING.md','docs/reports/compass-preview-report.md','docs/reports/desktop-021-report.md','docs/reports/desktop-021.json','docs/reports/desktop-021-settings.png','docs/reports/desktop-021rc3-report.md','docs/reports/desktop-021rc3.json','docs/reports/desktop-021rc3-chat.png','scripts/check-host-compat.mjs','scripts/build-client.mjs','scripts/phase-d-score.mjs','scripts/prepare-github.py'))
 secret=re.compile(rb'(?:sk-[A-Za-z0-9_-]{16,}|[?&]token=[A-Za-z0-9_-]{10,}|Bearer [A-Za-z0-9_-]{15,})')
 manifest={}
 for path in sorted(set(files)):

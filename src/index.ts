@@ -61,7 +61,7 @@ export function apply(ctx: Context, config: SettingsConfig = {}) {
       const review = params.has('commandId')?controller.reviews.find(r=>r.native?.commandId===params.get('commandId'))??null:id==='new'?null:controller.reviews.find(r=>r.id===(id||history.items[0]?.id))??null;
       const safeReview = review ? { ...review, recovery:recoveryInfo(review),followups:review.followups.map(f=>({...f,recovery:{canRetry:['failed','cancelled','interrupted'].includes(f.state),...failureHelp(f.errorCode)}})),calls: review.calls.map(({ system, input, ...rest }) => rest) } : null;
       const nativeSession=review?.native&&ctx.sessions?.get(SessionId(review.native.sessionId));
-      json(res, 200, { phase: 'Native Preview',version:'0.1.0-preview.4',productName:'SixHat Compass · 六帽规划',defaultMode:'hat-chat',preferences:getPreferences(),humanValidation:'not-completed', enabled: controller.enabled, busy: controller.busy, selection: ctx.agentDefaultModel.currentSelection(),
+      json(res, 200, { phase: 'Native Preview',version:'0.1.0-preview.5',productName:'SixHat Compass · 六帽规划',defaultMode:'hat-chat',preferences:getPreferences(),humanValidation:'not-completed', enabled: controller.enabled, busy: controller.busy, selection: ctx.agentDefaultModel.currentSelection(),
         storage:store.info,history,reviews:history.items,selectionMissing:!!id&&id!=='new'&&!review,review: safeReview,...(nativeSession?{nativeSessionStats:nativeSessionSummary(nativeSession)}:{}) });
     }}), ctx.webServer.register({ kind: 'exact', path: '/api/hexamind/action', handler: async (req, res) => {
       if (!trusted(req)) return json(res, 403, { error: 'UNTRUSTED_ORIGIN' });

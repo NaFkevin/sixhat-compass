@@ -21,3 +21,21 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm pack --dry-run
+  host-compat:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        host: [0.2.1-rc.2, 0.2.1-rc.3]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install isolated official host
+        run: |
+          node -e "require('node:fs').mkdirSync('.runtime/ci-host',{recursive:true});require('node:fs').writeFileSync('.runtime/ci-host/package.json',JSON.stringify({private:true,type:'module'}))"
+          npm install --prefix .runtime/ci-host --no-save --ignore-scripts --no-audit --no-fund @deepseek-ai/dsh@${{ matrix.host }}
+      - run: node scripts/check-host-compat.mjs .runtime/ci-host

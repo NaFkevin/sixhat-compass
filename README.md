@@ -2,7 +2,7 @@
 
 在 **DeepSeek Harness（DSH）原生聊天**中切换六种思考视角，评审计划、探索替代方案、明确下一步。
 
-**0.1.0-preview.4 · 社区插件 · MIT**
+**0.1.0-preview.5 · 社区插件 · MIT**
 
 ```text
 @黑帽 我每周8小时，计划4周内找3位用户试用。先指出最需要验证的风险。
@@ -31,14 +31,14 @@
 
 ## 安装
 
-要求 **Node.js ≥24**，支持 **DSH 0.2.0-rc.2 或 0.2.1-rc.2**；Windows 下实测 CLI/Web 及 Desktop 0.2.1-rc.2，模型 deepseek-flash。在 [Releases](https://github.com/NaFkevin/sixhat-compass/releases) 下载对应 `.tgz` 并核对随附的 `SHA256SUMS.txt`。
+要求 **Node.js ≥24**，支持 **DSH 0.2.0-rc.2、0.2.1-rc.2 或 0.2.1-rc.3**；Windows 下实测 CLI/Web 0.2.0-rc.2、0.2.1-rc.2，以及 Desktop 0.2.1-rc.2 / rc.3，模型 deepseek-flash。在 [Releases](https://github.com/NaFkevin/sixhat-compass/releases) 下载对应 `.tgz` 并核对随附的 `SHA256SUMS.txt`。
 
-桌面端：打开“插件 → 添加插件”，输入下载的 `.tgz` 完整路径；不要选择版本兼容豁免。Preview.3 只支持旧宿主，桌面端 0.2.1-rc.2 请使用 Preview.4。
+桌面端：打开“插件 → 添加插件”，输入下载的 `.tgz` 完整路径；不要选择版本兼容豁免。Preview.3 不支持 0.2.1；Preview.4 不支持 0.2.1-rc.3。rc.3 用户请使用 Preview.5。
 
 CLI/Web：关闭目标 DSH，确认与启动时相同的 `DSH_HOME` / `web` profile：
 
 ```powershell
-dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.4.tgz'
+dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.5.tgz'
 dsh web --no-open --host 127.0.0.1 --port 3088
 ```
 

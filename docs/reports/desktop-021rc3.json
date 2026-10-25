@@ -1,0 +1,59 @@
+{
+  "updatedAt": "2026-10-25T03:22:34.439Z",
+  "hostVersion": "0.2.1-rc.3",
+  "pluginVersion": "0.1.0-preview.5",
+  "platform": "Windows",
+  "isolatedDesktopProfile": true,
+  "installer": "official Desktop pnpm 11.28.5",
+  "compatibilityExemptions": false,
+  "previousRecords": {
+    "count": 2,
+    "unchanged": true
+  },
+  "newCalls": [
+    {
+      "id": "7a14787d-def4-490b-89fa-b170db73dfa9",
+      "hat": "black",
+      "state": "completed",
+      "calls": 1,
+      "card": null,
+      "contextMessages": 0,
+      "model": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      },
+      "replyChars": 190,
+      "replySha256": "1ee85fba6c21d82c3459c707f2ca7731ff6feab450f04823ea7d4692536d2148"
+    },
+    {
+      "id": "d97447da-2f07-4c85-abe3-c9378c301c53",
+      "hat": "green",
+      "state": "completed",
+      "calls": 1,
+      "card": null,
+      "contextMessages": 2,
+      "model": {
+        "provider": "deepseek-official",
+        "model": "deepseek-flash"
+      },
+      "replyChars": 1007,
+      "replySha256": "f8f25b2e4aa17fc4d064cfb9f1495c5a4fb5577924b3432f188521e713dd3ec7"
+    }
+  ],
+  "composer": {
+    "emptyWhileGenerating": true,
+    "nextDraftRetainedAfterCompletion": true
+  },
+  "api": {
+    "state": 200,
+    "backup": 200,
+    "foreignOrigin": 403
+  },
+  "officialDesktopForwarderSha": "a74ea7c7efd34bd916228bffa2bec782ef562c29",
+  "sdkChecks": [
+    "0.2.1-rc.2",
+    "0.2.1-rc.3"
+  ],
+  "tests": 67,
+  "formalHumanValidation": "not-completed"
+}

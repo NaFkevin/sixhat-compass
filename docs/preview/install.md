@@ -1,10 +1,10 @@
 # 六帽规划：安装与升级
 
-包名 `dsh-sixhat-compass`，版本 `0.1.0-preview.4`。精确支持 DSH `0.2.0-rc.2` 或 `0.2.1-rc.2`，Node.js ≥24。密钥只在宿主配置，不放入 GitHub 或问题反馈。
+包名 `dsh-sixhat-compass`，版本 `0.1.0-preview.5`。精确支持 DSH `0.2.0-rc.2` 或 `0.2.1-rc.2`，Node.js ≥24。密钥只在宿主配置，不放入 GitHub 或问题反馈。
 
-## Desktop 0.2.1-rc.2 安装
+## Desktop 0.2.1-rc.2 / rc.3 安装
 
-下载 Preview.4 的 `.tgz`，核对 SHA256 后，在“插件 → 添加插件”中填入安装包完整路径。Preview.3 要求旧宿主，不能安装到此桌面版本；不要跳过版本检查。若已安装同名旧包，先备份并停止任务，再按宿主提示卸载旧包后安装新版。不要删除 `storages/hexamind` 或会话目录。
+下载 Preview.5 的 `.tgz`，核对 SHA256 后，在“插件 → 添加插件”中填入安装包完整路径。Preview.3 要求旧宿主，Preview.4 未声明支持 rc.3；rc.3 用户请安装 Preview.5，不要跳过版本检查。若已安装同名旧包，先备份并停止任务，再按宿主提示卸载旧包后安装新版。不要删除 `storages/hexamind` 或会话目录。
 
 若出现 `database disk image is malformed`，这是 pnpm 安装缓存错误，与插件兼容声明不同；保留完整错误，勿通过版本豁免或删除会话解决。另一个插件的版本错误也需分别处理。
 
@@ -14,7 +14,7 @@
 
 ```powershell
 $env:DSH_HOME=Join-Path (Get-Location) '.runtime/sixhat-compass-user'
-dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.4.tgz'
+dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.5.tgz'
 dsh web --no-open --host 127.0.0.1 --port 3088
 ```
 
@@ -32,7 +32,7 @@ dsh web --no-open --host 127.0.0.1 --port 3088
 # 只执行与你实际已安装的旧包对应的remove命令：
 dsh plugin --profile web remove dsh-hexamind
 # 或：dsh plugin --profile web remove dsh-liumao-planner
-dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.4.tgz'
+dsh plugin --profile web add 'C:\下载目录\dsh-sixhat-compass-0.1.0-preview.5.tgz'
 ```
 
 4. 检查 `profiles/web/cordis.patch.yml`。旧 `id: hexamind` 保留，若该条目明确写了 `name: dsh-hexamind` 或 `name: dsh-liumao-planner`，仅把这一行改为 `name: dsh-sixhat-compass`，保留其 config 和其他条目。不要同时安装两个包，它们共享兼容性标识和单写者存储。

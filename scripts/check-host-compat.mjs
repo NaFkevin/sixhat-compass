@@ -1,0 +1,23 @@
+/** Check the actual host gate and compile server adapters against an isolated official SDK. */
+import {readFile,cp,mkdtemp} from 'node:fs/promises';
+import {resolve,join,dirname} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createRequire} from 'node:module';
+import {spawnSync} from 'node:child_process';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+if(!process.argv[2])throw Error('Usage: node scripts/check-host-compat.mjs <isolated host project>');
+const hostRoot=resolve(process.argv[2]);
+const hostRequire=createRequire(join(hostRoot,'package.json'));
+const boot=await import(pathToFileURL(hostRequire.resolve('@deepseek-ai/dsh-app-boot')));
+const manifest=JSON.parse((await readFile(join(root,'package.json'),'utf8')).replace(/^\uFEFF/u,''));
+const version=boot.getDshRuntimeVersion();
+const issue=boot.evaluatePluginCompatibility(manifest,{},version);
+if(issue)throw Error(boot.pluginCompatibilityWarning(issue));
+const sample=await mkdtemp(join(hostRoot,'.sixhat-types-'));
+await cp(join(root,'src'),join(sample,'src'),{recursive:true});
+await cp(join(root,'tsconfig.json'),join(sample,'tsconfig.json'));
+const require=createRequire(import.meta.url);
+const check=spawnSync(process.execPath,[require.resolve('typescript/bin/tsc'),'-p',join(sample,'tsconfig.json'),'--noEmit'],{stdio:'inherit',windowsHide:true});
+if(check.error)throw check.error;
+if(check.status!==0)process.exit(check.status??1);
+console.log(JSON.stringify({hostVersion:version,pluginVersion:manifest.version,compatibility:'accepted',exemptions:false,serverTypes:'passed'}));
