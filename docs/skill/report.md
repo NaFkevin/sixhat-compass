@@ -16,6 +16,8 @@
 - ZIP 白名单只有5个文件，单一顶层目录 `sixhat-compass`。固定时间戳、排序与 LF。公开交付排除凭据、私人材料、运行日志与本机路径。
 - Windows/Linux CI 会分别校验和打包，并比较[已提交的包清单](../../eval/skill/package-manifest.json)中的 SHA256；发布须等待同一提交的 CI 与 Skill 工作流全部通过。精确提交及 CI 链接以 Release 与 GitHub 检查为准。
 
+首轮 Skill CI 在 Linux 的 ZIP 总哈希比对中失败，5个文件内容哈希均相同。本机 ZIP 的平台标记为 Windows，改成 Unix 标记仍无法与 CI 总哈希一致，因此仅固定文本和时间不足以保证跨环境复现。打包改为固定 `create_system=3` 的 ZIP_STORED，不依赖压缩库输出；保留总哈希比对门禁，修复后的 Windows/Linux 任务都必须通过再发布。Skill 内容没有因此改变，也没有删除失败工作流记录。
+
 ## 真实宿主验证
 
 环境是 Windows，隔离 DSH_HOME 和隔离 Codex 项目；没有安装旧六帽插件，没有向日常技能目录安装或自动卸载插件。DSH 版本0.2.1-rc.3，宿主默认模型 `deepseek-flash`。Codex 使用已登录宿主默认模型 `gpt-6.1-sol`，原生 app-server、临时只读会话。

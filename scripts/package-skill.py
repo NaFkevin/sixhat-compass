@@ -13,14 +13,16 @@ folder=root/'skills/sixhat-compass'
 out.mkdir(parents=True,exist_ok=True)
 name=f"sixhat-compass-skill-{manifest['version']}.zip"
 target=out/name
-with zipfile.ZipFile(target,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
+with zipfile.ZipFile(target,'w',compression=zipfile.ZIP_STORED) as archive:
     for entry in manifest['files']:
         raw=(folder/entry['path']).read_bytes().replace(b'\r\n',b'\n')
         assert hashlib.sha256(raw).hexdigest()==entry['sha256'], 'Source changed during packaging'
         info=zipfile.ZipInfo('sixhat-compass/'+entry['path'],date_time=(2020,1,1,0,0,0))
-        info.compress_type=zipfile.ZIP_DEFLATED
+        # Explicit metadata and stored bytes avoid OS/zlib-dependent archives.
+        info.create_system=3
+        info.compress_type=zipfile.ZIP_STORED
         info.external_attr=0o100644 << 16
-        archive.writestr(info,raw,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+        archive.writestr(info,raw,compress_type=zipfile.ZIP_STORED)
 digest=hashlib.sha256(target.read_bytes()).hexdigest()
 (out/'SHA256SUMS.txt').write_bytes(f'{digest}  {name}\n'.encode('ascii'))
 manifest.update({'archive':name,'sha256':digest,'runtimeDependencies':[]})
